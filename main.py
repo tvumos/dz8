@@ -1,5 +1,5 @@
 """
-Домашнее задание № 6 - Трясцын Владимир
+Домашнее задание № 8 - Трясцын Владимир
 """
 
 import module.dz_lib as lib
@@ -11,6 +11,7 @@ CREATE_DIR = "Создать папку"
 DELETE_FILE_DIR = "Удалить (файл/папку)"
 COPY_FILE_DIR = "Копировать (файл/папку)"
 SHOW_CURRENT_DIR = "Просмотр содержимого рабочей директории"
+SHOW_ALL_CURRENT_DIR = "Просмотр содержимого рабочей директории включая все подпапки"
 SHOW_FILES_IN_CURRENT_DIR = "Посмотреть только папки"
 SHOW_DIRS_IN_CURRENT_DIR = "Посмотреть только файлы"
 SHOW_SYSTEM_INFO = "Просмотр информации об операционной системе"
@@ -27,6 +28,7 @@ menu_actions = {
     DELETE_FILE_DIR: lib.del_file_or_dir,
     COPY_FILE_DIR: lib.copy_file_or_dir,
     SHOW_CURRENT_DIR: lib.questions_save_listdir_in_file,
+    SHOW_ALL_CURRENT_DIR: lib.find_all_in_current_dir,
     SHOW_FILES_IN_CURRENT_DIR: lib.get_dir_in_current_dir,
     SHOW_DIRS_IN_CURRENT_DIR: lib.get_files_in_current_dir,
     SHOW_SYSTEM_INFO: lib.get_system_info,

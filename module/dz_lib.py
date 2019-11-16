@@ -5,7 +5,7 @@ import sys
 
 
 AUTHOR_PROGRAM = "Трясцын Владимир"
-DATE_CREATE = "04.11.2019"
+DATE_CREATE = "16.11.2019"
 
 
 def show_separator():
@@ -102,10 +102,8 @@ def questions_save_listdir_in_file():
     answer = input('Вы хотите сохранить содержимое рабочей директории в файл? (Да/Нет): ')
     while not answer.upper() in ["ДА", "НЕТ"]:
         answer = input('Повторите Ваш ответ. Вы хотите сохранить содержимое рабочей директории в файл? (Да/Нет): ')
-    if answer.upper() == "ДА":
-        find_in_current_dir(True)
-    else:
-        find_in_current_dir(False)
+    find_in_current_dir(True) if answer.upper() == "ДА" else find_in_current_dir(False)
+
 
 
 def find_in_current_dir(save_file):
@@ -114,15 +112,10 @@ def find_in_current_dir(save_file):
     print("Список директорий и файлов в текущем каталоге:")
     for item in os.listdir("."):
         if (os.path.isfile(item)):
-            if len(str_files) == 0:
-                str_files += ("files: " + item)
-            else:
-                str_files += (", " + item)
+            str_files += ("files: " + item) if len(str_files) == 0 else (", " + item)
         else:
-            if len(str_dirs) == 0:
-                str_dirs += ("dirs: " + item)
-            else:
-                str_dirs += (", " + item)
+            str_dirs += ("dirs: " + item) if len(str_files) == 0 else (", " + item)
+
     # Вывод на экран
     print(str_files)
     print(str_dirs)
@@ -134,16 +127,14 @@ def find_in_current_dir(save_file):
 
 
 def find_all_in_current_dir():
-    folders = []
     print("Список директорий и файлов в текущем каталоге (с вложенными файлами/каталогами):")
-    file_dir = os.listdir(".")
-    for item in file_dir:
-        folders.append(item)
+    curr_dir = "."
+    only_dir = [f for f in os.listdir(curr_dir) if os.path.isdir(os.path.join(curr_dir, f))]
+    print(f'Директории: {", ".join(only_dir)}')
 
-    for address, dirs, files in folders:
-        for dir in dirs:
-            for file in files:
-                print(f"Директория: {os.path.join(address, dir)}, Файл: {file}")
+    only_files = [f for f in os.listdir(curr_dir) if os.path.isfile(os.path.join(curr_dir, f))]
+    print(f'Файлы: {", ".join(only_files)}')
+
 
 
 def get_files_in_current_dir():
@@ -183,10 +174,11 @@ def change_current_dir():
     print(f"Текущая рабочая директория: {dir}")
     answer = input('Укажите новую рабочую директорию: -> ')
     try:
+        # 1/0
         os.chdir(answer)
         print(f"Текущая рабочая директория: {os.getcwd()}")
     except BaseException as e:
-        print(f'ОШИБКА. Сообщение: {e.strerror}')
+        print(f'ОШИБКА. Сообщение: {e}')
         os.chdir(dir)
         print(f"Текущая рабочая директория не изменилась: {os.getcwd()}")
 

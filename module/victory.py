@@ -29,19 +29,18 @@ date_words = {"26.05.1799": "Двадцать шестого мая 1799 год�
               "04.04.1932": "Четвертого апреля 1932 года", "15.03.1891": "Пятнадцатого марта 1891 года"}
 
 
+def count_victory_questions(answer):
+    # Если пользователь ввёл корректное число, то возвращаем это число, если не корректный ввод - возвращаем 5 вопросов
+    return int(answer) if answer.isdigit() and 4 <= int(answer) < len(fio_birth) else 5
+
+
 def victory_run():
     good_answer = 0  # Количество правильных ответов
     bad_answer = 0  # Количество ошибок
 
     answer = input('Укажите количество вопросов в викторине: -> ')
-    if answer.isdigit():
-        count_questions = int(answer)
-        if (count_questions >= 10) | (count_questions < 2):
-            print("В викторине будет 5 вопросов")
-            count_questions = 5
-    else:
-        print("В викторине будет 5 вопросов")
-        count_questions = 5
+    count_questions = count_victory_questions(answer)
+    print(f"В викторине будет {count_questions} вопросов")
 
     result_dict = random.sample(fio_birth.keys(), count_questions)
     while True:
